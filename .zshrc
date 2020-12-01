@@ -1,6 +1,7 @@
 # path
 export PATH=./node_modules/.bin:$PATH
 export PATH=~/Library/Python/3.6/bin:$PATH
+export PATH="$HOME/.cargo/bin:$PATH"
 
 # prompt
 autoload -Uz vcs_info
@@ -23,3 +24,5 @@ alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

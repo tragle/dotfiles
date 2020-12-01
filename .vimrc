@@ -77,6 +77,7 @@ let g:ale_fixers = {
 \}
 let g:ale_linters = {
 \   'javascript': ['eslint'],
+\   'rust': ['rls'],
 \}
 
 let g:ale_sign_error = '|'
@@ -97,8 +98,8 @@ au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 " leader key (Space)
 let mapleader = "\<Space>"
 
-" edit this file (F10)
-noremap <F10> :vsplit ~/.vimrc<CR>
+" edit this file (F1)
+noremap <F1> :vsplit ~/.vimrc<CR>
 
 " open the terminal (F2)
 noremap <F2> :terminal<CR>
@@ -193,8 +194,8 @@ nnoremap <Leader>w :w<CR>
 " cycle line number mode (Leader-l)
 nnoremap <Leader>l :call NumberToggle()<CR>
 
-" toggle search highlight (F4)
-noremap <F4> :set hlsearch! hlsearch?<CR>
+" toggle search highlight (C-h)
+noremap <C-h> :set hlsearch! hlsearch?<CR>
 
 " grep file contents (Leader-g)
 nnoremap <Leader>g :Ag<CR> 
@@ -243,11 +244,8 @@ nnoremap <silent> <C-\> :Lexplore <CR>
 " Prettier (gp)
 nnoremap <silent> gp :%!prettier --stdin-filepath %<CR>
 
-" Go to Definition (Ctrl-])
+" Go to Definition (Ctrl-d)
 nnoremap <silent> <C-]> :ALEGoToDefinition<CR>
 
-" Find References (Ctrl-?)
-nnoremap <silent> <C-?> :ALEFindReferences<CR>
-
-" Insert date
-nnoremap <silent> <C-d> :r! date "+\%Y-\%m-\%d \%H:\%M:\%S"<CR>
+"Find References (Ctrl-/)
+nnoremap <silent> ‘ :ALEFindReferences<CR>
