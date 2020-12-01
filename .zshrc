@@ -1,3 +1,5 @@
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
 # path
 export PATH=./node_modules/.bin:$PATH
 export PATH=~/Library/Python/3.6/bin:$PATH
@@ -21,8 +23,5 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-
-
-
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
