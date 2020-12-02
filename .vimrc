@@ -25,7 +25,7 @@ syntax on
 set background=dark
 set ruler
 set termguicolors
-let g:tokyonight_style='storm'
+let g:tokyonight_style='night' "'storm'
 let g:tokyonight_enable_italic = 1
 
 colorscheme tokyonight
@@ -80,6 +80,7 @@ let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 let g:ale_set_balloons = 1
 let g:ale_fixers = {
 \   'javascript': ['prettier'],
+\   'rust': ['rustfmt'],
 \}
 let g:ale_linters = {
 \   'javascript': ['eslint'],
@@ -88,6 +89,9 @@ let g:ale_linters = {
 
 let g:ale_sign_error = '|'
 let g:ale_sign_warning = '|'
+let g:ale_fix_on_save = 1
+
+let g:gitgutter_sign_modified = '∆'
 
 " Color tweak
 hi ALEErrorSign ctermbg=235 ctermfg=203
@@ -255,3 +259,6 @@ nnoremap <silent> <C-]> :ALEGoToDefinition<CR>
 
 "Find References (Ctrl-/)
 nnoremap <silent> ‘ :ALEFindReferences<CR>
+
+" Fix (==)
+nnoremap <silent> == :ALEFix<CR>
