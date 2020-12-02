@@ -6,7 +6,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'dense-analysis/ale'
 Plug 'tpope/vim-commentary'
-Plug 'jacoborus/tender.vim'
+Plug 'ghifarit53/tokyonight-vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 call plug#end()
@@ -22,8 +22,12 @@ set directory^=$HOME/.vim/tmp//
 " Theme
 syntax on
 set background=dark
-colorscheme tender
 set ruler
+set termguicolors
+let g:tokyonight_style='storm'
+let g:tokyonight_enable_italic = 1
+
+colorscheme tokyonight
 
 " Backspace
 set backspace=2
