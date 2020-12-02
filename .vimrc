@@ -9,6 +9,7 @@ Plug 'tpope/vim-commentary'
 Plug 'ghifarit53/tokyonight-vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-gitgutter'
 call plug#end()
 
 """"""""""""
@@ -28,6 +29,7 @@ let g:tokyonight_style='storm'
 let g:tokyonight_enable_italic = 1
 
 colorscheme tokyonight
+set updatetime=100
 
 " Backspace
 set backspace=2
