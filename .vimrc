@@ -90,8 +90,9 @@ let g:ale_linters = {
 let g:ale_sign_error = '|'
 let g:ale_sign_warning = '|'
 let g:ale_fix_on_save = 1
+let g:ale_completion_enabled = 1
 
-let g:gitgutter_sign_modified = '∆'
+let g:gitgutter_sign_modified = '≠'
 
 " Color tweak
 hi ALEErrorSign ctermbg=235 ctermfg=203
