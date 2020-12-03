@@ -25,8 +25,10 @@ syntax on
 set background=dark
 set ruler
 set termguicolors
-let g:tokyonight_style='night' "'storm'
-let g:tokyonight_enable_italic = 1
+" let g:tokyonight_style='night'
+let g:tokyonight_style='storm'
+let g:tokyonight_enable_italic=1
+let g:tokyonight_menu_selection_background='blue'
 
 colorscheme tokyonight
 set updatetime=100
@@ -85,14 +87,27 @@ let g:ale_fixers = {
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'rust': ['rls'],
+\   'typescript': ['tsserver'],
 \}
 
 let g:ale_sign_error = '|'
 let g:ale_sign_warning = '|'
 let g:ale_fix_on_save = 1
 let g:ale_completion_enabled = 1
+set completeopt=menu,menuone,popup,noselect,noinsert
+let g:ale_completion_delay=1000
+
 
 let g:gitgutter_sign_modified = '≠'
+let g:gitgutter_sign_modified = '≠'
+let g:gitgutter_sign_modified = '≠'
+
+let g:gitgutter_sign_added ='●'
+let g:gitgutter_sign_modified = '◍'
+let g:gitgutter_sign_removed = '○'
+let g:gitgutter_sign_removed_first_line = '◒'
+let g:gitgutter_sign_removed_above_and_below = '◓'
+let g:gitgutter_sign_modified_removed = '◑'
 
 " Color tweak
 hi ALEErrorSign ctermbg=235 ctermfg=203
