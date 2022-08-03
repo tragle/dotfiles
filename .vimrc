@@ -2,20 +2,26 @@
 " Plugins
 """"""""""""
 call plug#begin('~/.vim/plugged')
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
+Plug 'airblade/vim-gitgutter'
 Plug 'dense-analysis/ale'
-Plug 'tpope/vim-commentary'
 Plug 'ghifarit53/tokyonight-vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'airblade/vim-gitgutter'
+Plug 'leafgarland/typescript-vim'
+Plug 'ledger/vim-ledger'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'tpope/vim-commentary'
+Plug 'weihanglo/polar.vim'
+Plug 'tpope/vim-liquid'
 call plug#end()
 
 """"""""""""
 " Config
 """"""""""""
 set clipboard=unnamed
+set hidden
+set noerrorbells visualbell t_vb=
 
 " Swap files
 set directory^=$HOME/.vim/tmp//
@@ -25,13 +31,9 @@ syntax on
 set background=dark
 set ruler
 set termguicolors
+color tokyonight
+" colorscheme onehalfdark
 
-let g:tokyonight_style='night'
-" let g:tokyonight_style='storm'
-let g:tokyonight_enable_italic=1
-let g:tokyonight_menu_selection_background='blue'
-
-colorscheme tokyonight
 set updatetime=100
 
 " Backspace
@@ -54,6 +56,7 @@ set relativenumber
 " Terminal
 set ttyfast
 set lazyredraw
+tnoremap  <C-\><C-\> <C-\><C-n>
 
 function! NumberToggle()
   if(&relativenumber == 1 && &number == 1)
@@ -83,12 +86,15 @@ let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 let g:ale_set_balloons = 1
 let g:ale_fixers = {
 \   'javascript': ['prettier'],
+\   'typescript': ['prettier'],
+\   'typescriptreact': ['prettier'],
 \   'rust': ['rustfmt'],
 \}
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'rust': ['rls'],
-\   'typescript': ['tsserver'],
+\   'typescript': ['tsserver', 'eslint'],
+\   'typescriptreact': ['tsserver', 'eslint'],
 \}
 
 let g:ale_sign_warning =' ▕'
@@ -132,7 +138,7 @@ if !v:shell_error && s:uname == "Darwin"
   nnoremap ¬ <C-w>w
 
   " move to previous window (Alt-h)
-  nnoremap ˙ <C-w>W 
+  nnoremap ˙ <C-w>W
 
   " move to the window above (Alt-k)
   nnoremap ˚ <C-w>k
@@ -144,7 +150,7 @@ else
   nnoremap l <C-w>w
 
   " move to previous window (Alt-h)
-  nnoremap <M-h> <C-w>W 
+  nnoremap <M-h> <C-w>W
 
   " move to the window above (Alt-k)
   nnoremap <M-k> <C-w>k
@@ -220,7 +226,7 @@ nnoremap <Leader>l :call NumberToggle()<CR>
 noremap <C-h> :set hlsearch! hlsearch?<CR>
 
 " grep file contents (Leader-g)
-nnoremap <Leader>g :Ag<CR> 
+nnoremap <Leader>g :Ag<CR>
 
 " search file names (Leader-f)
 nnoremap <Leader>f :Files<CR>
