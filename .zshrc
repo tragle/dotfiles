@@ -4,6 +4,7 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 export PATH=./node_modules/.bin:$PATH
 export PATH=~/Library/Python/3.6/bin:$PATH
 export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
 
 # prompt
 autoload -Uz vcs_info
@@ -15,7 +16,8 @@ PROMPT='%~ '\$vcs_info_msg_0_'%F{green}%%%f '
 
 # ls color
 export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
-alias ls='ls -G'
+# alias ls='ls -G'
+# alias ls='pls'
 
 # nvm config
 export NVM_DIR="$HOME/.nvm"
