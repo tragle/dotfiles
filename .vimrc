@@ -1,19 +1,14 @@
-""""""""""""
-" Plugins
-""""""""""""
 call plug#begin('~/.vim/plugged')
-Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'airblade/vim-gitgutter'
-Plug 'dense-analysis/ale'
-Plug 'ghifarit53/tokyonight-vim'
+Plug 'itchyny/vim-gitbranch'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'leafgarland/typescript-vim'
-Plug 'ledger/vim-ledger'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'tpope/vim-commentary'
-Plug 'weihanglo/polar.vim'
-Plug 'tpope/vim-liquid'
+Plug 'ghifarit53/tokyonight-vim'
+Plug 'sonph/onehalf', { 'rtp': 'vim' }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 """"""""""""
@@ -28,11 +23,11 @@ set directory^=$HOME/.vim/tmp//
 
 " Theme
 syntax on
-set background=dark
+set background=light
 set ruler
 set termguicolors
 color tokyonight
-" colorscheme onehalfdark
+" colorscheme everforest
 
 set updatetime=100
 
@@ -71,8 +66,23 @@ function! NumberToggle()
   endif
 endfunc
 
+" Set the title of the Terminal to the currently open file
+function! SetTerminalTitle()
+    let titleString = expand('%:t')
+    if len(titleString) > 0
+        let &titlestring = expand('%:t')
+        " this is the format iTerm2 expects when setting the window title
+        let args = "\033];".&titlestring."\007"
+        let cmd = 'silent !echo -e "'.args.'"'
+        execute cmd
+        redraw!
+    endif
+endfunction
+
+autocmd BufEnter * call SetTerminalTitle()
+
 " File explorer
-let  g:netrw_banner=0
+let g:netrw_banner=0
 let g:netrw_winsize=25
 
 " Search
@@ -82,28 +92,34 @@ set hlsearch
 set ignorecase
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
-" IDE
-let g:ale_set_balloons = 1
-let g:ale_fixers = {
-\   'javascript': ['prettier'],
-\   'typescript': ['prettier'],
-\   'typescriptreact': ['prettier'],
-\   'rust': ['rustfmt'],
-\}
-let g:ale_linters = {
-\   'javascript': ['eslint'],
-\   'rust': ['rls'],
-\   'typescript': ['tsserver', 'eslint'],
-\   'typescriptreact': ['tsserver', 'eslint'],
-\}
+" Coc
+" set signcolumn=yes
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-let g:ale_sign_warning =' ▕'
-let g:ale_sign_error =' ▕'
-let g:ale_fix_on_save = 1
-let g:ale_completion_enabled = 1
-set completeopt=menu,menuone,popup,noselect,noinsert
-let g:ale_completion_delay=1000
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
+
+autocmd CursorHold * call CocActionAsync('highlight')
+
+" Use ? to show documentation in preview window.
+nnoremap <silent> ? :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('?', 'in')
+  endif
+endfunction
+
+" gitgutter
 let g:gitgutter_sign_added = '\ ●'
 let g:gitgutter_sign_modified = '\ ◍'
 let g:gitgutter_sign_removed = '\ ○'
@@ -111,9 +127,20 @@ let g:gitgutter_sign_removed_first_line = '\ ◒'
 let g:gitgutter_sign_removed_above_and_below = '\ ◓'
 let g:gitgutter_sign_modified_removed = '\ ◑'
 
-" Color tweak
-hi ALEErrorSign ctermbg=235 ctermfg=203
-hi ALEWarningSign ctermbg=235 ctermfg=226
+" status line
+set laststatus=2
+set statusline=
+" set statusline+=%#PmenuSel#
+set statusline+=%{gitbranch#name()}
+set statusline+=%#LineNr#
+set statusline+=\ %f
+set statusline+=%m
+set statusline+=%=
+" set statusline+=%#CursorColumn#
+set statusline+=\ %y
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+set statusline+=\ %p%%
+set statusline+=\ %l:%c
 
 " XML
 au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
@@ -249,8 +276,8 @@ nnoremap <silent> <Leader>- :%s/\s\+$//g<CR>:w<CR> <C-o>
 nnoremap <silent> <F5> :edit!<CR>
 inoremap <silent> <F5> <ESC>:edit!<CR>i
 
-" Comment (Ctrl-c)
-nnoremap <silent> <C-c> :Commentary<CR>
+" Comment (Ctrl-/)
+nnoremap <silent> <C-_> :Commentary<CR>
 
 " e-prime search (Leader-e)
 nnoremap <silent> <Leader>E :set hlsearch<CR>/\
@@ -269,14 +296,5 @@ nnoremap <silent> <Leader>E :set hlsearch<CR>/\
 " File explorer (Ctrl-\)
 nnoremap <silent> <C-\> :Lexplore <CR>
 
-" Prettier (gp)
-nnoremap <silent> gp :%!prettier --stdin-filepath %<CR>
-
 " Go to Definition (Ctrl-d)
-nnoremap <silent> <C-]> :ALEGoToDefinition<CR>
-
-"Find References (Ctrl-/)
-nnoremap <silent> ‘ :ALEFindReferences<CR>
-
-" Fix (==)
-nnoremap <silent> == :ALEFix<CR>
+nnoremap <silent> <C-]> :call CocActionAsync('jumpDefinition')<CR>
