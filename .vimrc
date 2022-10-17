@@ -89,7 +89,7 @@ let g:netrw_winsize=25
 set path+=**
 set wildignore+=**/node_modules/*,**/bower_components/*,**/dist/**,**/public/**,yarn.lock,release/**,build/**
 set hlsearch
-set ignorecase
+set noignorecase
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 " Coc
@@ -277,24 +277,13 @@ nnoremap <silent> <F5> :edit!<CR>
 inoremap <silent> <F5> <ESC>:edit!<CR>i
 
 " Comment (Ctrl-/)
-nnoremap <silent> <C-_> :Commentary<CR>
-
-" e-prime search (Leader-e)
-nnoremap <silent> <Leader>E :set hlsearch<CR>/\
-      \<be\>\\|\
-      \<being\>\\|\
-      \<is\>\\|\
-      \<isn't\>\\|\
-      \<are\>\\|\
-      \<aren't\>\\|\
-      \<was\>\\|\
-      \<wasn't\>\\|\
-      \<were\>\\|\
-      \<weren't\>\\|\
-      \<been\><CR>
+noremap <silent> <C-_> :Commentary<CR>
 
 " File explorer (Ctrl-\)
 nnoremap <silent> <C-\> :Lexplore <CR>
 
 " Go to Definition (Ctrl-d)
 nnoremap <silent> <C-]> :call CocActionAsync('jumpDefinition')<CR>
+
+" Open command list
+nnoremap <silent> <C-p> :CocCommand<CR>
