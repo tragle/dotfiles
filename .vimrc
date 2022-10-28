@@ -1,5 +1,4 @@
 call plug#begin('~/.vim/plugged')
-Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/vim-gitbranch'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -9,6 +8,8 @@ Plug 'tpope/vim-commentary'
 Plug 'ghifarit53/tokyonight-vim'
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'tpope/vim-fugitive'
+Plug 'mhinz/vim-signify'
 call plug#end()
 
 """"""""""""
@@ -119,13 +120,10 @@ function! ShowDocumentation()
   endif
 endfunction
 
-" gitgutter
-let g:gitgutter_sign_added = '\ ●'
-let g:gitgutter_sign_modified = '\ ◍'
-let g:gitgutter_sign_removed = '\ ○'
-let g:gitgutter_sign_removed_first_line = '\ ◒'
-let g:gitgutter_sign_removed_above_and_below = '\ ◓'
-let g:gitgutter_sign_modified_removed = '\ ◑'
+let g:signify_sign_add = '●'
+let g:signify_sign_change = '◍'
+let g:signify_sign_delete = '○'
+let g:signify_sign_delete_first_line = '◒'
 
 " status line
 set laststatus=2
@@ -287,3 +285,6 @@ nnoremap <silent> <C-]> :call CocActionAsync('jumpDefinition')<CR>
 
 " Open command list
 nnoremap <silent> <C-p> :CocCommand<CR>
+
+" Diff current line
+nnoremap <Leader>d :SignifyHunkDiff<CR>
