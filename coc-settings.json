@@ -1,5 +1,5 @@
 {
-  "coc.preferences.hoverTarget": "echo",
+  "eslint.autoFixOnSave": true,
   "signature.target": "echo",
   "diagnostic.errorSign": "=>",
   "diagnostic.infoSign": "->",
