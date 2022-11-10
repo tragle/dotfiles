@@ -24,11 +24,14 @@ set directory^=$HOME/.vim/tmp//
 
 " Theme
 syntax on
-set background=light
+set background=dark
 set ruler
 set termguicolors
 color tokyonight
-" colorscheme everforest
+set hlsearch
+hi Search ctermbg=DarkGray
+hi Search ctermfg=LightGray
+
 
 set updatetime=100
 
