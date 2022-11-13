@@ -22,6 +22,8 @@ set noerrorbells visualbell t_vb=
 " Swap files
 set directory^=$HOME/.vim/tmp//
 
+set autoread
+
 " Theme
 syntax on
 set background=dark
