@@ -10,6 +10,11 @@ Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
+Plug 'killphi/vim-ebnf'
+Plug 'junegunn/goyo.vim'
+Plug 'elixir-editors/vim-elixir'
+Plug 'lifepillar/pgsql.vim'
+Plug 'tpope/vim-surround'
 call plug#end()
 
 """"""""""""
@@ -42,7 +47,7 @@ set backspace=2
 
 " Mouse
 set mouse=a
-set ttymouse=xterm2
+" set ttymouse=xterm2
 
 " Tabs
 set tabstop=2
@@ -106,6 +111,13 @@ inoremap <silent><expr> <TAB>
       \ coc#refresh()
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice.
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
@@ -149,6 +161,10 @@ set statusline+=\ %l:%c
 au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
 au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 
+" Golang
+au BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
+
+let g:sql_type_default = 'pgsql'
 """"""""""""
 " Shortcuts
 """"""""""""
@@ -285,11 +301,34 @@ noremap <silent> <C-_> :Commentary<CR>
 " File explorer (Ctrl-\)
 nnoremap <silent> <C-\> :Lexplore <CR>
 
-" Go to Definition (Ctrl-d)
+" Go to Definition (Ctrl-])
 nnoremap <silent> <C-]> :call CocActionAsync('jumpDefinition')<CR>
+
+" Find references
+nnoremap <silent> ‘ :call CocAction('jumpReferences')<CR>
 
 " Open command list
 nnoremap <silent> <C-p> :CocCommand<CR>
 
 " Diff current line
 nnoremap <Leader>d :SignifyHunkDiff<CR>
+
+" Applying code actions to the selected code block
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying code actions at the cursor position
+nmap <leader>ac  <Plug>(coc-codeaction-cursor)
+" Remap keys for apply code actions affect whole buffer
+nmap <leader>as  <Plug>(coc-codeaction-source)
+" Apply the most preferred quickfix action to fix diagnostic on the current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Remap keys for applying refactor code actions
+nmap <silent> <leader>re <Plug>(coc-codeaction-refactor)
+xmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+
+" Rename
+nmap <leader>rn <Plug>(coc-rename)
