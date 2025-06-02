@@ -15,6 +15,7 @@ Plug 'junegunn/goyo.vim'
 Plug 'elixir-editors/vim-elixir'
 Plug 'lifepillar/pgsql.vim'
 Plug 'tpope/vim-surround'
+Plug 'preservim/nerdtree'
 call plug#end()
 
 """"""""""""
@@ -38,7 +39,7 @@ color tokyonight
 set hlsearch
 hi Search ctermbg=DarkGray
 hi Search ctermfg=LightGray
-
+set encoding=UTF-8
 
 set updatetime=100
 
@@ -124,7 +125,7 @@ inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 
-autocmd CursorHold * call CocActionAsync('highlight')
+" autocmd CursorHold * call CocActionAsync('highlight')
 
 " Use ? to show documentation in preview window.
 nnoremap <silent> ? :call ShowDocumentation()<CR>
@@ -220,35 +221,6 @@ nnoremap <Leader>[ :bprevious<CR>
 " list buffers (Leader-b)
 nnoremap <Leader>b :Buffers<CR>
 
-" first buffer (Leader-1)
-nnoremap <Leader>1 :1b<CR>
-
-" second buffer (Leader-2)
-nnoremap <Leader>2 :2b<CR>
-
-" third buffer (Leader-3)
-nnoremap <Leader>3 :3b<CR>
-
-" fourth buffer (Leader-4)
-nnoremap <Leader>4 :4b<CR>
-
-" fifth buffer (Leader-5)
-nnoremap <Leader>5 :5b<CR>
-
-" sixth buffer (Leader-6)
-nnoremap <Leader>6 :6b<CR>
-
-" seventh buffer (Leader-7)
-nnoremap <Leader>7 :7b<CR>
-
-" eighth buffer (Leader-8)
-nnoremap <Leader>8 :8b<CR>
-
-" ninth buffer (Leader-9)
-nnoremap <Leader>9 :9b<CR>
-
-" tenth buffer (Leader-0)
-nnoremap <Leader>10 :10b<CR>
 
 " close window (Leader-Esc)
 nnoremap <Leader><Esc> <C-w>c
@@ -299,7 +271,7 @@ inoremap <silent> <F5> <ESC>:edit!<CR>i
 noremap <silent> <C-_> :Commentary<CR>
 
 " File explorer (Ctrl-\)
-nnoremap <silent> <C-\> :Lexplore <CR>
+nnoremap <silent> <C-\> :NERDTreeToggle <CR>
 
 " Go to Definition (Ctrl-])
 nnoremap <silent> <C-]> :call CocActionAsync('jumpDefinition')<CR>
@@ -312,23 +284,6 @@ nnoremap <silent> <C-p> :CocCommand<CR>
 
 " Diff current line
 nnoremap <Leader>d :SignifyHunkDiff<CR>
-
-" Applying code actions to the selected code block
-" Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap keys for applying code actions at the cursor position
-nmap <leader>ac  <Plug>(coc-codeaction-cursor)
-" Remap keys for apply code actions affect whole buffer
-nmap <leader>as  <Plug>(coc-codeaction-source)
-" Apply the most preferred quickfix action to fix diagnostic on the current line
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Remap keys for applying refactor code actions
-nmap <silent> <leader>re <Plug>(coc-codeaction-refactor)
-xmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
-nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
 
 " Rename
 nmap <leader>rn <Plug>(coc-rename)
